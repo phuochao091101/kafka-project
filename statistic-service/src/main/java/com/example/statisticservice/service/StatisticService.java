@@ -15,7 +15,13 @@ public class StatisticService {
     private StatisticRepository statisticRepository;
     @KafkaListener(id="statisticGroup",topics = "statistic")
     public void listen(Statistic statistic){
-        logger.info("Received: ",statistic.getMessage());
+//        logger.info("Received: ",statistic.getMessage());
+//        statisticRepository.save(statistic);
+        throw new RuntimeException();
+    }
+    @KafkaListener(id="dltGroup",topics = "statistic.DLT")
+    public void dltListen(Statistic statistic){
+        logger.info("Received: DLT ",statistic.getMessage());
         statisticRepository.save(statistic);
     }
 }
